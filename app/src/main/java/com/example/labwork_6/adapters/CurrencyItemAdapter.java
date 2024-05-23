@@ -2,29 +2,30 @@ package com.example.labwork_6.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.example.labwork_6.R;
-import com.example.labwork_6.models.RectangleModel;
+import com.example.labwork_6.models.CurrencyItem;
 
 import java.util.ArrayList;
 
-public class RectangleAdapter extends ArrayAdapter<RectangleModel> {
-    public RectangleAdapter(Context context, ArrayList<RectangleModel> rectangles) {
-        super(context, 0, rectangles);
+public class CurrencyItemAdapter extends ArrayAdapter<CurrencyItem> {
+    private ArrayList<CurrencyItem> items;
+    public CurrencyItemAdapter(@NonNull Context context, int resource, ArrayList<CurrencyItem> items) {
+        super(context, resource, items);
     }
-
 
     @SuppressLint("ResourceType")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Получаем данные для этого пункта
-        RectangleModel rectangleModel = getItem(position);
+        CurrencyItem item = getItem(position);
 
         // Проверяем, используется ли
         if (convertView == null) {
@@ -33,11 +34,8 @@ public class RectangleAdapter extends ArrayAdapter<RectangleModel> {
 
         // Находим TextView и устанавливаем цвета
         TextView textView = convertView.findViewById(R.id.textView);
-        textView.setBackgroundColor(Color.parseColor(rectangleModel.getRectangleColor()));
-        textView.setTextColor(Color.parseColor(rectangleModel.getTextColor()));
-        textView.setText(rectangleModel.getText());
+        textView.setText(item.getName() + ": " + item.getValue());
 
         return convertView;
     }
 }
-
